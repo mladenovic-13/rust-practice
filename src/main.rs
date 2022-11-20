@@ -1,3 +1,3 @@
-fn main(){
-  println!("New application");
+fn main() {
+    println!("text");
 }
