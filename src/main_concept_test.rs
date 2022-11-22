@@ -6,15 +6,11 @@ struct Student {
     lastname: String,
     grades: Vec<u32>,
 }
-// impl Student {
-//     fn get_final_grade(&self) -> f32 {
-//         let mut sum: f32 = 0.0;
-//         for grade in &self.grades {
-//             sum += *grade as f32;
-//         }
-//         sum / self.grades.len() as f32
-//     }
-// }
+impl Student {
+    fn get_final_grade(&self) -> f32 {
+        self.grades.iter().sum::<u32>() as f32 / self.grades.len() as f32
+    }
+}
 
 fn main() {
     println!("Welcome to students service!");
@@ -34,8 +30,7 @@ fn main() {
         }
     };
 
-    let mut i = 0;
-    while i < students_count {
+    for i in 0..students_count {
         let mut name = String::new();
         let mut lastname = String::new();
         let mut grades: Vec<u32> = Vec::new();
@@ -86,9 +81,19 @@ fn main() {
         };
 
         students.push(student);
-        // Loop counter
-        i += 1;
     }
 
-    println!("{:#?}", students);
+    println!("This is the list of students:");
+    students
+        .iter()
+        // .enumerate()
+        .for_each(|student| {
+            println!(
+                "Student:{}{}{:#?}Final grade: {}",
+                student.name,
+                student.lastname,
+                student.grades,
+                student.get_final_grade()
+            )
+        })
 }
